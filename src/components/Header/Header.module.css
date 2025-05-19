@@ -1,0 +1,62 @@
+.header {
+    background-color: #fff;
+    width: 100%;
+    padding: 0 2rem;
+    box-sizing: border-box;
+}
+
+.headerContent {
+    margin: 0 auto;
+    max-width: 75rem;
+    height: 6.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerLogoImage {
+    height: 3.188rem;
+    display: block;
+}
+
+.headerRightSection {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.headerNav {
+    margin-right: 2rem;
+}
+
+.headerNavList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.headerNavItem {
+    margin: 0 1.2rem;
+}
+
+.headerNavLink {
+    text-decoration: none;
+    color: #28224B;
+    font-weight: 400;
+    font-size: 0.94rem;
+    transition: color 0.3s ease-in-out;
+}
+
+.headerNavLink:hover {
+    color: #007bff;
+}
+
+.headerNavLinkActive {
+    color: #35B8BE;
+}
+
+.headerCartImage {
+    height: 3.438rem;
+    display: block;
+}

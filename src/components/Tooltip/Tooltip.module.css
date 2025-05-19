@@ -1,0 +1,43 @@
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltipTrigger {
+    color: #35B8BE;
+    cursor: pointer;
+}
+
+.tooltipBox {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    color: #35B8BE;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    white-space: nowrap;
+    font-size: 0.875rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.tooltip:hover .tooltipBox {
+    opacity: 1;
+    visibility: visible;
+}
+
+.tooltipLink {
+    color: #35B8BE;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.tooltipLink:hover {
+    color: #6BD5DE;
+    text-decoration: underline;
+}
