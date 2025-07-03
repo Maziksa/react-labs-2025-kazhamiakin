@@ -67,9 +67,8 @@
 }
 
 .menuPageGrid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.25rem;
     width: 73.75rem;
     margin: 0 auto;

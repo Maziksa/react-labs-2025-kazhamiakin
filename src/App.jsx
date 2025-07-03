@@ -1,25 +1,21 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import Layout from "./components/Layout/Layout.jsx";
 import MenuPage from './pages/MenuPage/MenuPage.jsx';
 
-class App extends React.Component {
-    state = {
-        cartCount: 0,
-    };
+function App() {
+    // Используем хук useState для управления состоянием корзины
+    const [cartCount, setCartCount] = useState(0);
 
-    handleAddToCart = (quantity) => {
-        this.setState(prevState => ({
-            cartCount: prevState.cartCount + quantity
-        }));
-    };
+    // Используем useCallback, чтобы избежать лишних ре-рендеров дочерних компонентов
+    const handleAddToCart = useCallback((quantity) => {
+        setCartCount(prevCount => prevCount + quantity);
+    }, []);
 
-    render() {
-        return (
-            <Layout cartCount={this.state.cartCount}>
-                <MenuPage onAddToCart={this.handleAddToCart} />
-            </Layout>
-        );
-    }
+    return (
+        <Layout cartCount={cartCount}>
+            <MenuPage onAddToCart={handleAddToCart} />
+        </Layout>
+    );
 }
 
 export default App;

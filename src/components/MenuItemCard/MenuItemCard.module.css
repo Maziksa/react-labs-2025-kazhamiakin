@@ -1,6 +1,5 @@
 .menuItemCard {
     max-width: 36.25rem;
-    max-height: 12.5rem;
     background-color: #fff;
     border: 1px solid #35B8BE26;
     border-radius: 0.375rem;
@@ -72,6 +71,7 @@
 .menuItemCardControls {
     display: flex;
     align-items: center;
+    margin-top: auto;
 }
 
 .menuItemCardQuantityInput {
