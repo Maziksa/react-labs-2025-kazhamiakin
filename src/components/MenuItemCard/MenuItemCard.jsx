@@ -1,47 +1,64 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./MenuItemCard.module.css";
 
-function MenuItemCard({ title, description, price, imageURL }) {
-    const [inputCount, setInputCount] = useState(1);
+class MenuItemCard extends React.Component {
+    state = {
+        inputCount: 1,
+    };
 
-    const handleCountChange = (e) => {
+    handleCountChange = (e) => {
         const value = e.target.value;
-
         if (value === "") {
-            setInputCount("");
+            this.setState({ inputCount: "" });
             return;
         }
         const numValue = parseInt(value, 10);
         if (!isNaN(numValue) && numValue >= 1) {
-            setInputCount(numValue);
-        } else if (!isNaN(numValue) && numValue < 1 && value.length > 0) {
-            setInputCount(1);
+            this.setState({ inputCount: numValue });
+        } else if (value === "" || (!isNaN(numValue) && numValue < 1)) {
+            this.setState({ inputCount: 1 });
         }
     };
 
-    return (
-        <div className={styles.menuItemCard}>
-            <div className={styles.menuItemCardImageContainer}>
-                <img src={imageURL} alt={title} className={styles.menuItemCardImage} />
-            </div>
-            <div className={styles.menuItemCardInfo}>
-                <div className={styles.menuItemCardHeader}>
-                    <h4 className={styles.menuItemCardTitle}>{title}</h4>
-                    <span className={styles.menuItemCardPrice}>{price}</span>
+    handleAddToCartClick = () => {
+        if (this.state.inputCount > 0) {
+            this.props.onAddToCart(this.state.inputCount);
+        }
+    }
+
+    render() {
+        const { title, description, price, imageURL } = this.props;
+        const { inputCount } = this.state;
+
+        const shortDescription = description.length > 100 ? description.substring(0, 100) + '...' : description;
+
+        return (
+            <div className={styles.menuItemCard}>
+                <div className={styles.menuItemCardImageContainer}>
+                    <img src={imageURL} alt={title} className={styles.menuItemCardImage} />
                 </div>
-                <p className={styles.menuItemCardDescription}>{description}</p>
-                <div className={styles.menuItemCardControls}>
-                    <input
-                        type="number"
-                        value={inputCount}
-                        onChange={handleCountChange}
-                        className={styles.menuItemCardQuantityInput}
-                        min="1"
-                    />
-                    <button className={styles.menuItemCardAddToCartButton}>Add to card</button>
+                <div className={styles.menuItemCardInfo}>
+                    <div className={styles.menuItemCardHeader}>
+                        <h4 className={styles.menuItemCardTitle}>{title}</h4>
+                        <span className={styles.menuItemCardPrice}>{price}</span>
+                    </div>
+                    <p className={styles.menuItemCardDescription}>{shortDescription}</p>
+                    <div className={styles.menuItemCardControls}>
+                        <input
+                            type="number"
+                            value={inputCount}
+                            onChange={this.handleCountChange}
+                            className={styles.menuItemCardQuantityInput}
+                            min="1"
+                        />
+                        <button onClick={this.handleAddToCartClick} className={styles.menuItemCardAddToCartButton}>
+                            Add to cart
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
+
 export default MenuItemCard;

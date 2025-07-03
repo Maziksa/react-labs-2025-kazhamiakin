@@ -60,3 +60,25 @@
     height: 3.438rem;
     display: block;
 }
+
+.cartContainer {
+    position: relative;
+}
+
+.cartCounter {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background-color: white;
+    color: #35B8BE;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+}

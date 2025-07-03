@@ -1,5 +1,8 @@
 .menuPage {
     background-image: url('../../assets/images/background/main-bg.svg');
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 100% auto;
 }
 
 .menuContent {
