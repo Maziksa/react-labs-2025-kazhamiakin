@@ -5,7 +5,7 @@ import instagramLogo from "../../assets/icons/socials/instagram.svg";
 import twitterLogo from "../../assets/icons/socials/twitter.svg";
 import youtubeLogo from "../../assets/icons/socials/youtube.svg";
 
-function Footer() {
+const Footer: React.FC = () => {
     const googleUrl = "https://www.google.com/";
     return (
         <footer className={styles.footer}>

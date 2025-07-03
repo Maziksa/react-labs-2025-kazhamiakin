@@ -1,5 +1,16 @@
-const validateLoginForm = ({ email, password }) => {
-    const errors = {};
+interface IValidateLoginFormProps {
+    email: string;
+    password: string;
+}
+
+// ИЗМЕНЕНО: Экспортируем интерфейс, чтобы его можно было использовать в других файлах
+export interface ILoginFormErrorsProps {
+    email?: string;
+    password?: string;
+}
+
+const validateLoginForm = ({ email, password }: IValidateLoginFormProps): ILoginFormErrorsProps => {
+    const errors: ILoginFormErrorsProps = {};
 
     if (!email) {
         errors.email = "Email is required";

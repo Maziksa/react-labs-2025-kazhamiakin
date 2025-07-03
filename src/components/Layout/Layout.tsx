@@ -1,9 +1,16 @@
 import React from "react";
-import Header from "../Header/Header.jsx";
-import Footer from "../Footer/Footer.jsx";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 import styles from "./Layout.module.css";
 
-function Layout({ children, cartCount, currentPage, setCurrentPage }) {
+interface LayoutProps {
+    children: React.ReactNode;
+    cartCount: number;
+    currentPage: string;
+    setCurrentPage: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children, cartCount, currentPage, setCurrentPage }) => {
     return (
         <div className={styles.layout}>
             <Header

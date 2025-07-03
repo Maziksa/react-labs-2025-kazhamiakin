@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import styles from './Tooltip.module.css';
 
-function Tooltip({ triggerText, tooltipContent }) {
-    const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+interface TooltipProps {
+    triggerText: string;
+    tooltipContent: string;
+}
+
+const Tooltip: React.FC<TooltipProps> = ({ triggerText, tooltipContent }) => {
+    const [isTooltipVisible, setIsTooltipVisible] = useState<boolean>(false);
 
     return (
         <span

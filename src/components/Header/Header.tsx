@@ -2,19 +2,24 @@ import React from "react";
 import styles from "./Header.module.css";
 import MainLogo from "../../assets/icons/logo.svg";
 import CartIcon from "../../assets/icons/cart-icon.svg";
-import { useAuth } from "../../context/AuthContext.jsx";
+import { useAuth } from "../../context/AuthContext";
 
-function Header({ cartCount, currentPage, setCurrentPage }) {
+interface HeaderProps {
+    cartCount: number;
+    currentPage: string;
+    setCurrentPage: (page: string) => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ cartCount, currentPage, setCurrentPage }) => {
     const { currentUser, logout } = useAuth();
 
-    const handleNavClick = (e, page) => {
+    const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, page: string) => {
         e.preventDefault();
-        // Запрещаем навигацию для неавторизованных пользователей
-        if (!currentUser) return;
+        if (!currentUser && page !== 'login') return;
         setCurrentPage(page);
     };
 
-    const handleLogout = async (e) => {
+    const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
         try {
             await logout();
@@ -35,40 +40,24 @@ function Header({ cartCount, currentPage, setCurrentPage }) {
                     <nav className={styles.headerNav}>
                         <ul className={styles.headerNavList}>
                             <li className={styles.headerNavItem}>
-                                <a
-                                    href="#"
-                                    onClick={(e) => handleNavClick(e, 'home')}
-                                    className={`${styles.headerNavLink} ${currentPage === 'home' && currentUser ? styles.headerNavLinkActive : ''}`}
-                                >
-                                    Home
-                                </a>
+                                <a href="#" onClick={(e) => handleNavClick(e, 'home')} className={`${styles.headerNavLink} ${currentPage === 'home' && currentUser ? styles.headerNavLinkActive : ''}`}>Home</a>
                             </li>
                             <li className={styles.headerNavItem}>
-                                <a
-                                    href="#"
-                                    onClick={(e) => handleNavClick(e, 'menu')}
-                                    className={`${styles.headerNavLink} ${currentPage === 'menu' && currentUser ? styles.headerNavLinkActive : ''}`}
-                                >
-                                    Menu
-                                </a>
+                                <a href="#" onClick={(e) => handleNavClick(e, 'menu')} className={`${styles.headerNavLink} ${currentPage === 'menu' && currentUser ? styles.headerNavLinkActive : ''}`}>Menu</a>
                             </li>
                             <li className={styles.headerNavItem}>
                                 <a href="#" className={styles.headerNavLink}>Company</a>
                             </li>
                             <li className={styles.headerNavItem}>
                                 {currentUser ? (
-                                    <a href="#" onClick={handleLogout} className={styles.headerNavLink}>
-                                        Logout
-                                    </a>
+                                    <a href="#" onClick={handleLogout} className={styles.headerNavLink}>Logout</a>
                                 ) : (
-                                    <a href="#" className={`${styles.headerNavLink} ${currentPage === 'login' ? styles.headerNavLinkActive : ''}`}>
-                                        Login
-                                    </a>
+                                    <a href="#" onClick={(e) => handleNavClick(e, 'login')} className={`${styles.headerNavLink} ${currentPage === 'login' ? styles.headerNavLinkActive : ''}`}>Login</a>
                                 )}
                             </li>
                         </ul>
                     </nav>
-                    {currentUser && ( // Показываем корзину только залогиненным
+                    {currentUser && (
                         <div className={styles.cartContainer}>
                             <a href="#">
                                 <img src={CartIcon} alt="Cart" className={styles.headerCartImage}/>

@@ -10,12 +10,12 @@ import {
     TrustpilotLogo,
     TrustpilotRating,
     ImageContent
-} from './HomePage.styles.js';
+} from './HomePage.styles';
 
 import heroImage from '../../assets/images/hero/heroimg.png';
 import trustpilotLogo from '../../assets/icons/trustpilot.png';
 
-function HomePage() {
+const HomePage: React.FC = () => {
     return (
         <HomePageMain>
             <HomePageContainer>
