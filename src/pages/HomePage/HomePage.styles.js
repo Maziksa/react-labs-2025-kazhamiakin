@@ -3,11 +3,10 @@ import bgShape from '../../assets/images/background/home-bg.svg';
 
 export const HomePageMain = styled.div`
     display: flex;
-    width: 100%;
+    width: 100vw;
     justify-content: center;
-    background-image: url(${bgShape});
+    background-image: url("${bgShape}");
     background-size: cover;
-    background-position: center;
     height: 820px;
     align-items: center;
 `;
