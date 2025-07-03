@@ -1,26 +1,27 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from 'react-redux';
+import {onAuthStateChanged} from 'firebase/auth';
+import {auth} from './firebase';
+import {AppDispatch, RootState} from './store/store';
+import {setUser} from './store/slices/authSlice';
+import {setCurrentPage} from './store/slices/uiSlice';
 import Layout from "./components/Layout/Layout";
 import MenuPage from './pages/MenuPage/MenuPage';
 import HomePage from './pages/HomePage/HomePage';
 import LoginPage from "./pages/LoginPage/LoginPage";
-import { AuthProvider, useAuth } from "./context/AuthContext";
 
-const AppContent: React.FC = () => {
-    const { currentUser } = useAuth();
-    const [cartCount, setCartCount] = useState<number>(0);
-    const [currentPage, setCurrentPage] = useState<string>('home');
+const App: React.FC = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    const { user: currentUser } = useSelector((state: RootState) => state.auth);
+    const { currentPage } = useSelector((state: RootState) => state.ui);
 
-    const handleAddToCart = useCallback((quantity: number) => {
-        setCartCount(prevCount => prevCount + quantity);
-    }, []);
-
+    // Слушаем изменения состояния аутентификации Firebase
     useEffect(() => {
-        if (currentUser) {
-            setCurrentPage('home');
-        } else {
-            setCurrentPage('login');
-        }
-    }, [currentUser]);
+        return onAuthStateChanged(auth, (user) => {
+            dispatch(setUser(user ? JSON.parse(JSON.stringify(user)) : null));
+            dispatch(setCurrentPage(user ? 'home' : 'login'));
+        }); // Отписываемся при размонтировании
+    }, [dispatch]);
 
     const renderPage = () => {
         if (!currentUser) {
@@ -29,7 +30,7 @@ const AppContent: React.FC = () => {
 
         switch (currentPage) {
             case 'menu':
-                return <MenuPage onAddToCart={handleAddToCart} />;
+                return <MenuPage />;
             case 'home':
             default:
                 return <HomePage />;
@@ -37,21 +38,9 @@ const AppContent: React.FC = () => {
     };
 
     return (
-        <Layout
-            cartCount={cartCount}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-        >
+        <Layout>
             {renderPage()}
         </Layout>
-    );
-}
-
-const App: React.FC = () => {
-    return (
-        <AuthProvider>
-            <AppContent />
-        </AuthProvider>
     );
 }
 

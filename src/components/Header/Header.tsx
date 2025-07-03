@@ -1,31 +1,27 @@
 import React from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../../store/store';
+import { logoutUser } from '../../store/slices/authSlice';
+import { setCurrentPage } from '../../store/slices/uiSlice';
 import styles from "./Header.module.css";
 import MainLogo from "../../assets/icons/logo.svg";
 import CartIcon from "../../assets/icons/cart-icon.svg";
-import { useAuth } from "../../context/AuthContext";
 
-interface HeaderProps {
-    cartCount: number;
-    currentPage: string;
-    setCurrentPage: (page: string) => void;
-}
-
-const Header: React.FC<HeaderProps> = ({ cartCount, currentPage, setCurrentPage }) => {
-    const { currentUser, logout } = useAuth();
+const Header: React.FC = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    const { user: currentUser } = useSelector((state: RootState) => state.auth);
+    const { totalCount: cartCount } = useSelector((state: RootState) => state.cart);
+    const { currentPage } = useSelector((state: RootState) => state.ui);
 
     const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, page: string) => {
         e.preventDefault();
         if (!currentUser && page !== 'login') return;
-        setCurrentPage(page);
+        dispatch(setCurrentPage(page));
     };
 
     const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
-        try {
-            await logout();
-        } catch (error) {
-            console.error("Failed to log out", error);
-        }
+        dispatch(logoutUser());
     };
 
     return (

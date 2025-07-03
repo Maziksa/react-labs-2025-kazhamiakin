@@ -1,39 +1,30 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../context/AuthContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/store';
+import { loginUser, signupUser } from '../../store/slices/authSlice';
 import styles from './LoginPage.module.css';
-// ИЗМЕНЕНО: Импортируем тип вместе с функцией
 import validateLoginForm, { ILoginFormErrorsProps } from '../../utils/validateForm';
 
 const LoginPage: React.FC = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    const { loading, error: firebaseError } = useSelector((state: RootState) => state.auth);
+
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const [firebaseError, setFirebaseError] = useState<string>('');
-    // ИЗМЕНЕНО: Используем импортированный тип для состояния
     const [formErrors, setFormErrors] = useState<ILoginFormErrorsProps>({});
-    const [loading, setLoading] = useState<boolean>(false);
-    const { login, signup } = useAuth();
 
-    const handleSubmit = async (e: React.FormEvent, action: 'login' | 'signup') => {
+    const handleSubmit = (e: React.FormEvent, action: 'login' | 'signup') => {
         e.preventDefault();
         const validationErrors = validateLoginForm({ email, password });
         setFormErrors(validationErrors);
 
         if (Object.keys(validationErrors).length > 0) return;
 
-        setFirebaseError('');
-        setLoading(true);
-
-        try {
-            if (action === 'login') {
-                await login(email, password);
-            } else {
-                await signup(email, password);
-            }
-        } catch (err: any) {
-            setFirebaseError(err.message);
+        if (action === 'login') {
+            dispatch(loginUser({ email, password }));
+        } else {
+            dispatch(signupUser({ email, password }));
         }
-
-        setLoading(false);
     };
 
     return (

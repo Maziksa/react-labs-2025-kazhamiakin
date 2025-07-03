@@ -1,22 +1,24 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/store';
+import { fetchMeals } from '../../store/slices/mealsSlice';
 import styles from './MenuPage.module.css';
 import MenuItemCard from '../../components/MenuItemCard/MenuItemCard';
 import Tooltip from '../../components/Tooltip/Tooltip';
-import { useFetch } from '../../hooks/useFetch';
-import { MenuItem } from '@src/types';
 
-const API_URL = 'https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals';
 const ITEMS_PER_PAGE = 6;
 const CATEGORIES = ['Desert', 'Dinner', 'Breakfast'];
 
-interface MenuPageProps {
-    onAddToCart: (quantity: number) => void;
-}
+const MenuPage: React.FC = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    const { items: menuItems, loading, error } = useSelector((state: RootState) => state.meals);
 
-const MenuPage: React.FC<MenuPageProps> = ({ onAddToCart }) => {
-    const { data: menuItems, loading, error } = useFetch<MenuItem[]>(API_URL);
     const [visibleItemsCount, setVisibleItemsCount] = useState<number>(ITEMS_PER_PAGE);
     const [activeCategory, setActiveCategory] = useState<string>('Desert');
+
+    useEffect(() => {
+        dispatch(fetchMeals());
+    }, [dispatch]);
 
     const handleCategoryChange = (category: string) => {
         setActiveCategory(category);
@@ -57,7 +59,7 @@ const MenuPage: React.FC<MenuPageProps> = ({ onAddToCart }) => {
                 </section>
                 <div className={styles.menuPageGrid}>
                     {visibleItems.map((menuItem) => (
-                        <MenuItemCard key={menuItem.id} item={menuItem} onAddToCart={onAddToCart} />
+                        <MenuItemCard key={menuItem.id} item={menuItem} />
                     ))}
                 </div>
                 {hasMoreItems && (

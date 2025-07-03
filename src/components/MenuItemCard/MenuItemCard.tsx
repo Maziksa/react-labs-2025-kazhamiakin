@@ -1,20 +1,23 @@
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import { addToCart } from '../../store/slices/cartSlice';
 import styles from "./MenuItemCard.module.css";
 import { MenuItem } from "@src/types";
 
 interface MenuItemCardProps {
     item: MenuItem;
-    onAddToCart: (quantity: number) => void;
 }
 
-const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, onAddToCart }) => {
+const MenuItemCard: React.FC<MenuItemCardProps> = ({ item }) => {
+    const dispatch = useDispatch<AppDispatch>();
     const [inputCount, setInputCount] = useState<number>(1);
 
     const handleCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         const numValue = parseInt(value, 10);
         if (value === "" || isNaN(numValue)) {
-            setInputCount(1); // Or handle empty string state
+            setInputCount(1);
         } else if (numValue >= 1) {
             setInputCount(numValue);
         }
@@ -22,7 +25,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({ item, onAddToCart }) => {
 
     const handleAddToCartClick = () => {
         if (inputCount > 0) {
-            onAddToCart(inputCount);
+            dispatch(addToCart(inputCount));
         }
     };
 
