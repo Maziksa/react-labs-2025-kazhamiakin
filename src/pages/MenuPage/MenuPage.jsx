@@ -1,41 +1,18 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import styles from './MenuPage.module.css';
 import MenuItemCard from '../../components/MenuItemCard/MenuItemCard.jsx';
 import Tooltip from '../../components/Tooltip/Tooltip.jsx';
+import { useFetch } from '../../hooks/useFetch.js';
 
 const API_URL = 'https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals';
 const ITEMS_PER_PAGE = 6;
 const CATEGORIES = ['Desert', 'Dinner', 'Breakfast'];
 
 function MenuPage({ onAddToCart }) {
-    const [menuItems, setMenuItems] = useState([]);
+    const { data: menuItems, loading, error } = useFetch(API_URL);
+
     const [visibleItemsCount, setVisibleItemsCount] = useState(ITEMS_PER_PAGE);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    // ИЗМЕНЕНО: Начальная категория теперь 'Desert'
     const [activeCategory, setActiveCategory] = useState('Desert');
-
-    useEffect(() => {
-        const fetchMenuItems = async () => {
-            setLoading(true);
-            try {
-                const response = await fetch(API_URL);
-
-                if (!response.ok) {
-                    setError(`HTTP error! status: ${response.status}`);
-                } else {
-                    const data = await response.json();
-                    setMenuItems(data);
-                }
-
-            } catch (e) {
-                setError(e.message);
-            }
-            setLoading(false);
-        };
-
-        fetchMenuItems();
-    }, []);
 
     const handleCategoryChange = (category) => {
         setActiveCategory(category);
@@ -43,6 +20,7 @@ function MenuPage({ onAddToCart }) {
     };
 
     const filteredItems = useMemo(() => {
+        if (!menuItems) return []; // Возвращаем пустой массив, если данные еще не загружены
         const filterCategory = activeCategory === 'Desert' ? 'Dessert' : activeCategory;
         return menuItems.filter(item => item.category === filterCategory);
     }, [menuItems, activeCategory]);
