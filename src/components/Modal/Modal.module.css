@@ -4,7 +4,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background: var(--background-primary);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,16 +23,16 @@
 
 .modalContent h2 {
     margin-top: 0;
-    color: #35B8BE;
+    color: var(--accent-primary);
 }
 
 .modalContent p {
-    color: #333;
+    color: var(--text-primary);
     margin-bottom: 1.5rem;
 }
 
 .modalContent button {
-    background-color: #35B8BE;
+    background-color: var(--accent-primary);
     color: white;
     padding: 0.8rem 1.5rem;
     border: none;
@@ -42,16 +42,14 @@
 }
 
 .orderDetails {
-
-
     text-align: left;
     margin: 1.5rem 0;
     padding: 1rem;
-    background-color: #f9f9f9;
+    background-color: var(--background-tertiary);
+    border: 1px solid var(--border-color);
     border-radius: 6px;
-    border: 1px solid #eee;
 }
 
 .orderDetails p {
-    margin: 0.5rem 0;
+    color: var(--text-primary);
 }

@@ -1,8 +1,9 @@
 .header {
-    background-color: #fff;
+    background-color: var(--header-bg);
     width: 100%;
     padding: 0 2rem;
     box-sizing: border-box;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
 .headerContent {
@@ -42,18 +43,18 @@
 
 .headerNavLink {
     text-decoration: none;
-    color: #28224B;
+    color: var(--text-primary);
     font-weight: 400;
     font-size: 0.94rem;
     transition: color 0.3s ease-in-out;
 }
 
 .headerNavLink:hover {
-    color: #007bff;
+    color: var(--accent-primary);
 }
 
 .headerNavLinkActive {
-    color: #35B8BE;
+    color: var(--accent-primary);
 }
 
 .headerCartImage {
@@ -69,8 +70,8 @@
     position: absolute;
     top: -5px;
     right: -8px;
-    background-color: white;
-    color: #35B8BE;
+    background-color: var(--background-primary);
+    color: var(--accent-primary);
     border-radius: 50%;
     font-size: 0.75rem;
     font-weight: bold;
@@ -81,4 +82,23 @@
     width: 20px;
     height: 20px;
     padding: 0;
+    border: 1px solid var(--accent-primary);
+}
+
+.themeToggleButton {
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.themeToggleButton:hover {
+    background-color: var(--button-secondary-bg);
 }

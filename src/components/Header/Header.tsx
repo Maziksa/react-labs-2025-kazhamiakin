@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { RootState, AppDispatch } from '../../store/store';
 import { logoutUser } from '../../store/slices/authSlice';
+import { toggleTheme } from '../../store/slices/themeSlice';
 import styles from "./Header.module.css";
 import MainLogo from "../../assets/icons/logo.svg";
 import CartIcon from "../../assets/icons/cart-icon.svg";
@@ -15,6 +16,7 @@ const Header: React.FC = () => {
     const { user: currentUser } = useSelector((state: RootState) => state.auth);
     const cartItems = useSelector((state: RootState) => state.cart.items);
     const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+    const { theme } = useSelector((state: RootState) => state.theme);
 
     const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
@@ -55,6 +57,9 @@ const Header: React.FC = () => {
                             </li>
                         </ul>
                     </nav>
+                    <button onClick={() => dispatch(toggleTheme())} className={styles.themeToggleButton}>
+                        {theme === 'light' ? '🌙' : '☀️'}
+                    </button>
                     {currentUser && (
                         <div className={styles.cartContainer}>
                             <Link to="/order">

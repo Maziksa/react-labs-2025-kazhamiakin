@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import bgShape from '../../assets/images/background/home-bg.svg';
 
 export const HomePageMain = styled.div`
     display: flex;
-    width: 100vw;
+    width: 100%;
     justify-content: center;
-    background-image: url("${bgShape}");
+    background-image: var(--home-bg-image);
+    background-color: var(--main-bg);
     background-size: cover;
     height: 820px;
     align-items: center;
@@ -31,22 +31,22 @@ export const Title = styled.h1`
     font-weight: 400;
     line-height: 1.2;
     margin-bottom: 1.5rem;
-    color: #333;
+    color: var(--text-primary);
 
     span {
-        color: #35B8BE;
+        color: var(--accent-primary);
     }
 `;
 
 export const Description = styled.p`
     font-size: 1.1rem;
-    color: #546285;
+    color: var(--text-secondary);
     line-height: 1.6;
     margin-bottom: 2rem;
 `;
 
 export const OrderButton = styled.button`
-    background-color: #35B8BE;
+    background-color: var(--accent-primary);
     color: white;
     border: none;
     border-radius: 6px;
@@ -57,7 +57,7 @@ export const OrderButton = styled.button`
     transition: background-color 0.3s;
 
     &:hover {
-        background-color: #2a9d9f;
+        opacity: 0.9;
     }
 `;
 
@@ -78,10 +78,10 @@ export const TrustpilotLogo = styled.div`
 
 export const TrustpilotRating = styled.p`
     font-size: 0.9rem;
-    color: #546285;
+    color: var(--text-secondary);
     margin: 0;
     span {
-        color: #35B8BE;
+        color: var(--accent-primary);
     }
 `;
 

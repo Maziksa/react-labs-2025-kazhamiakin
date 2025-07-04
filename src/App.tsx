@@ -5,6 +5,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {auth} from './firebase';
 import {AppDispatch} from './store/store';
 import {setUser} from './store/slices/authSlice';
+import {ThemeProvider} from "./context/ThemeContext";
 import Layout from "./components/Layout/Layout";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import MenuPage from './pages/MenuPage/MenuPage';
@@ -22,23 +23,22 @@ const App: React.FC = () => {
     }, [dispatch]);
 
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Layout />}>
-                    {/* Public Routes */}
-                    <Route index element={<HomePage />} />
-                    <Route path="login" element={<LoginPage />} />
-                    <Route path="menu" element={<MenuPage />} />
-
-                    {/* Private Routes */}
-                    <Route path="order" element={
-                        <PrivateRoute>
-                            <OrderPage />
-                        </PrivateRoute>
-                    } />
-                </Route>
-            </Routes>
-        </BrowserRouter>
+        <ThemeProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Layout />}>
+                        <Route index element={<HomePage />} />
+                        <Route path="login" element={<LoginPage />} />
+                        <Route path="menu" element={<MenuPage />} />
+                        <Route path="order" element={
+                            <PrivateRoute>
+                                <OrderPage />
+                            </PrivateRoute>
+                        } />
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </ThemeProvider>
     );
 }
 

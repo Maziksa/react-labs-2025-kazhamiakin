@@ -1,14 +1,17 @@
 .footer {
-    background-image: url('../../assets/images/background/footer-bg.svg');
+    background-image: var(--footer-bg-image);
+    background-color: var(--background-primary);
     background-size: cover;
     background-position: center;
     width: 100%;
     padding: 3rem 0;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
 .footerContent {
     max-width: 75rem;
     margin: 0 auto;
+    padding: 0 2rem;
 }
 
 .footerSectionTop {
@@ -22,7 +25,7 @@
 .footerBrandArea {
     flex: 1;
     min-width: 15rem;
-    margin-right: 22.313rem;
+    margin-right: 2rem;
 }
 
 .footerLogoImage {
@@ -33,19 +36,19 @@
 .footerSlogan {
     font-size: 1rem;
     line-height: 1.6;
-    color: #546285;
+    color: var(--text-secondary);
 }
 
 .footerLinksColumn {
     flex: 1;
-    max-width: 11.875rem;
+    min-width: 10rem;
 }
 
 .footerColumnTitle {
     font-size: 0.813rem;
     font-weight: 400;
     margin: 0 0 1.75rem;
-    color: #08090A;
+    color: var(--text-primary);
 }
 
 .footerLinkList {
@@ -55,7 +58,7 @@
 }
 
 .footerLink {
-    color: #546285;
+    color: var(--text-secondary);
     text-decoration: none;
     line-height: 1.5;
     font-size: 0.938rem;
@@ -64,13 +67,13 @@
     transition: color 0.2s ease;
 }
 .footerLink:hover {
-    color: #007bff;
+    color: var(--accent-primary);
 }
 
 .footerDivider {
     border: 0;
-    border-top: 1px solid #7E828F17;
-    margin: 6.188rem 0 3.813rem;
+    border-top: 1px solid var(--border-color-light);
+    margin: 3rem 0;
 }
 
 .footerSectionBottom {
@@ -80,16 +83,15 @@
     flex-wrap: wrap;
     gap: 1rem;
     font-size: 0.875rem;
-    color: #BDBDBD;
 }
 
 .footerBrandSection {
     margin: 0;
-    color: #353448;
+    color: var(--text-secondary);
 }
 
 .footerBrandName {
-    color: #35B8BE;
+    color: var(--accent-primary);
     font-weight: 500;
 }
 

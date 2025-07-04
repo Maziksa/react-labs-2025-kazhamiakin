@@ -1,0 +1,37 @@
+:root {
+    --background-primary: #FFFFFF;
+    --background-secondary: #F5FBFC;
+    --background-tertiary: #FAFAFA;
+    --text-primary: #08090A;
+    --text-secondary: #546285;
+    --accent-primary: #35B8BE;
+    --accent-secondary: #6BD5DE;
+    --border-color: #DDDDDD;
+    --border-color-light: #35B8BE26;
+    --button-secondary-bg: #f0f0f0;
+    --button-secondary-text: #333;
+    --header-bg: #FFFFFF;
+    --main-bg: #FFFFFF;
+    --footer-bg-image: url('../assets/images/background/footer-bg.svg');
+    --main-bg-image: url('../assets/images/background/main-bg.svg');
+    --home-bg-image: url('../assets/images/background/home-bg.svg');
+}
+
+[data-theme='dark'] {
+    --background-primary: #1A202C;
+    --background-secondary: #2D3748;
+    --background-tertiary: #4A5568;
+    --text-primary: #F7FAFC;
+    --text-secondary: #A0AEC0;
+    --accent-primary: #35B8BE;
+    --accent-secondary: #6BD5DE;
+    --border-color: #4A5568;
+    --border-color-light: #35B8BE40;
+    --button-secondary-bg: #4A5568;
+    --button-secondary-text: #F7FAFC;
+    --header-bg: #2D3748;
+    --main-bg: #2D3748;
+    --footer-bg-image: url('../assets/images/background/dark/footer-bg.svg');
+    --main-bg-image: url('../assets/images/background/dark/main-bg.svg');
+    --home-bg-image: url('../assets/images/background/dark/home-bg.svg');
+}

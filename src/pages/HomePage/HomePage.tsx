@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // ИЗМЕНЕНО: Импортируем Link
+import { Link } from 'react-router-dom';
 import {
     HomePageMain,
     HomePageContainer,

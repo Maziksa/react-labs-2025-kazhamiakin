@@ -1,5 +1,6 @@
 .menuPage {
-    background-image: url('../../assets/images/background/main-bg.svg');
+    background-image: var(--main-bg-image);
+    background-color: var(--main-bg);
     background-repeat: no-repeat;
     background-position: top center;
     background-size: 100% auto;
@@ -21,13 +22,13 @@
     font-weight: 400;
     letter-spacing: 0.103rem;
     line-height: 3.438rem;
-    color: #35B8BE;
+    color: var(--accent-primary);
     margin: 0 auto 1.625rem;
 }
 
 .menuPageDescription {
     font-size: 1rem;
-    color: #546285;
+    color: var(--text-secondary);
     line-height: 1.688rem;
     font-weight: 400;
     max-width: 30rem;
@@ -46,24 +47,25 @@
     width: 9.188rem;
     height: 3.25rem;
     border-radius: 6px;
-    color: #222222;
+    color: var(--text-primary);
     font-weight: 400;
     font-size: 16px;
     line-height: 20px;
-    border: 1px solid #61728333;
+    border: 1px solid var(--border-color);
     background-color: transparent;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .menuPageCategoryButton:hover {
-    background-color: #007bff;
+    background-color: var(--accent-secondary);
     color: white;
 }
 
 .menuPageCategoryButtonActive {
-    background-color: #35B8BE;
+    background-color: var(--accent-primary);
     color: white;
+    border-color: var(--accent-primary);
 }
 
 .menuPageGrid {
@@ -83,7 +85,7 @@
 .menuGridSeeMoreButton {
     width: 9.188rem;
     height: 3.25rem;
-    background-color: #35B8BE;
+    background-color: var(--accent-primary);
     color: white;
     font-weight: 400;
     font-size: 1.063rem;

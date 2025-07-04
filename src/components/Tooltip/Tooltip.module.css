@@ -4,7 +4,7 @@
 }
 
 .tooltipTrigger {
-    color: #35B8BE;
+    color: var(--accent-primary);
     cursor: pointer;
 }
 
@@ -13,8 +13,8 @@
     bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #fff;
-    color: #35B8BE;
+    background-color: var(--background-primary);
+    color: var(--accent-primary);
     padding: 1rem;
     border-radius: 0.25rem;
     white-space: nowrap;
@@ -32,12 +32,12 @@
 }
 
 .tooltipLink {
-    color: #35B8BE;
+    color: var(--accent-primary);
     text-decoration: none;
     cursor: pointer;
 }
 
 .tooltipLink:hover {
-    color: #6BD5DE;
+    color: var(--accent-secondary);
     text-decoration: underline;
 }
