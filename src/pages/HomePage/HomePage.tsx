@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // ИЗМЕНЕНО: Импортируем Link
 import {
     HomePageMain,
     HomePageContainer,
@@ -26,7 +27,9 @@ const HomePage: React.FC = () => {
                     <Description>
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
                     </Description>
-                    <OrderButton>Place an Order</OrderButton>
+                    <Link to="/menu" style={{ textDecoration: 'none' }}>
+                        <OrderButton>Place an Order</OrderButton>
+                    </Link>
                     <TrustpilotSection>
                         <TrustpilotLogo>
                             <img src={trustpilotLogo} alt="Trustpilot logo"/>

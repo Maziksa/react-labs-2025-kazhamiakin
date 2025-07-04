@@ -54,7 +54,7 @@ const authSlice = createSlice({
             })
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.loading = false;
-                state.user = action.payload as any; // Firebase user is not directly serializable
+                state.user = action.payload as any;
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.loading = false;

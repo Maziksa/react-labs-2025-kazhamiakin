@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
-import { addToCart } from '../../store/slices/cartSlice';
+import { addItemToCart } from '../../store/slices/cartSlice';
 import styles from "./MenuItemCard.module.css";
 import { MenuItem } from "@src/types";
 
@@ -25,7 +25,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({ item }) => {
 
     const handleAddToCartClick = () => {
         if (inputCount > 0) {
-            dispatch(addToCart(inputCount));
+            dispatch(addItemToCart({ item, quantity: inputCount }));
         }
     };
 

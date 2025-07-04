@@ -1,22 +1,48 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { MenuItem } from '@src/types';
+
+export interface CartItem extends MenuItem {
+    quantity: number;
+}
 
 interface CartState {
-    totalCount: number;
+    items: CartItem[];
 }
 
 const initialState: CartState = {
-    totalCount: 0,
+    items: [],
 };
 
 const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        addToCart: (state, action: PayloadAction<number>) => {
-            state.totalCount += action.payload;
+        addItemToCart: (state, action: PayloadAction<{ item: MenuItem; quantity: number }>) => {
+            const { item, quantity } = action.payload;
+            const existingItem = state.items.find(cartItem => cartItem.id === item.id);
+
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                state.items.push({ ...item, quantity });
+            }
+        },
+        removeItemFromCart: (state, action: PayloadAction<string>) => {
+            state.items = state.items.filter(item => item.id !== action.payload);
+        },
+        // ИЗМЕНЕНО: Добавлен новый reducer для обновления количества
+        updateItemQuantity: (state, action: PayloadAction<{ id: string; quantity: number }>) => {
+            const { id, quantity } = action.payload;
+            const itemToUpdate = state.items.find(item => item.id === id);
+            if (itemToUpdate && quantity >= 1) {
+                itemToUpdate.quantity = quantity;
+            }
+        },
+        clearCart: (state) => {
+            state.items = [];
         },
     },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addItemToCart, removeItemFromCart, updateItemQuantity, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;

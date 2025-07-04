@@ -3,7 +3,6 @@ interface IValidateLoginFormProps {
     password: string;
 }
 
-// ИЗМЕНЕНО: Экспортируем интерфейс, чтобы его можно было использовать в других файлах
 export interface ILoginFormErrorsProps {
     email?: string;
     password?: string;

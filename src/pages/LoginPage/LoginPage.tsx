@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { AppDispatch, RootState } from '../../store/store';
 import { loginUser, signupUser } from '../../store/slices/authSlice';
 import styles from './LoginPage.module.css';
@@ -7,11 +8,22 @@ import validateLoginForm, { ILoginFormErrorsProps } from '../../utils/validateFo
 
 const LoginPage: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const { loading, error: firebaseError } = useSelector((state: RootState) => state.auth);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const { loading, error: firebaseError, user: currentUser } = useSelector((state: RootState) => state.auth);
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [formErrors, setFormErrors] = useState<ILoginFormErrorsProps>({});
+
+    const from = location.state?.from?.pathname || "/";
+
+    useEffect(() => {
+        if (currentUser) {
+            navigate(from, { replace: true });
+        }
+    }, [currentUser, navigate, from]);
 
     const handleSubmit = (e: React.FormEvent, action: 'login' | 'signup') => {
         e.preventDefault();

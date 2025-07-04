@@ -1,46 +1,44 @@
 import React, {useEffect} from "react";
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {onAuthStateChanged} from 'firebase/auth';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {auth} from './firebase';
-import {AppDispatch, RootState} from './store/store';
+import {AppDispatch} from './store/store';
 import {setUser} from './store/slices/authSlice';
-import {setCurrentPage} from './store/slices/uiSlice';
 import Layout from "./components/Layout/Layout";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import MenuPage from './pages/MenuPage/MenuPage';
 import HomePage from './pages/HomePage/HomePage';
 import LoginPage from "./pages/LoginPage/LoginPage";
+import OrderPage from "./pages/OrderPage/OrderPage";
 
 const App: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const { user: currentUser } = useSelector((state: RootState) => state.auth);
-    const { currentPage } = useSelector((state: RootState) => state.ui);
 
-    // Слушаем изменения состояния аутентификации Firebase
     useEffect(() => {
         return onAuthStateChanged(auth, (user) => {
             dispatch(setUser(user ? JSON.parse(JSON.stringify(user)) : null));
-            dispatch(setCurrentPage(user ? 'home' : 'login'));
-        }); // Отписываемся при размонтировании
+        });
     }, [dispatch]);
 
-    const renderPage = () => {
-        if (!currentUser) {
-            return <LoginPage />;
-        }
-
-        switch (currentPage) {
-            case 'menu':
-                return <MenuPage />;
-            case 'home':
-            default:
-                return <HomePage />;
-        }
-    };
-
     return (
-        <Layout>
-            {renderPage()}
-        </Layout>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Layout />}>
+                    {/* Public Routes */}
+                    <Route index element={<HomePage />} />
+                    <Route path="login" element={<LoginPage />} />
+                    <Route path="menu" element={<MenuPage />} />
+
+                    {/* Private Routes */}
+                    <Route path="order" element={
+                        <PrivateRoute>
+                            <OrderPage />
+                        </PrivateRoute>
+                    } />
+                </Route>
+            </Routes>
+        </BrowserRouter>
     );
 }
 
