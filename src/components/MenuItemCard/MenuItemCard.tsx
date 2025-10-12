@@ -11,21 +11,28 @@ interface MenuItemCardProps {
 
 const MenuItemCard: React.FC<MenuItemCardProps> = ({ item }) => {
     const dispatch = useDispatch<AppDispatch>();
-    const [inputCount, setInputCount] = useState<number>(1);
+    const [inputCount, setInputCount] = useState<string>('1');
 
     const handleCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
-        const numValue = parseInt(value, 10);
-        if (value === "" || isNaN(numValue)) {
-            setInputCount(1);
-        } else if (numValue >= 1) {
-            setInputCount(numValue);
+
+        if (value === "") {
+            setInputCount("");
+            return;
         }
+
+        const numValue = parseInt(value, 10);
+
+        if (isNaN(numValue) || numValue < 1) {
+            return;
+        }
+        setInputCount(value);
     };
 
     const handleAddToCartClick = () => {
-        if (inputCount > 0) {
-            dispatch(addItemToCart({ item, quantity: inputCount }));
+        const quantityToAdd = inputCount === "" ? 1 : parseInt(inputCount as string, 10);
+        if (quantityToAdd > 0) {
+            dispatch(addItemToCart({ item, quantity: quantityToAdd }));
         }
     };
 

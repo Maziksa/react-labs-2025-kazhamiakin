@@ -1,4 +1,3 @@
-// src/store/slices/cartSlice.test.ts
 import cartReducer, {
     addItemToCart,
     removeItemFromCart,
