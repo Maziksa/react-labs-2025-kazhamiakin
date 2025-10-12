@@ -23,7 +23,8 @@
     "paths": {
       "@src/*": ["./src/*"],
       "@assets/*": ["./src/assets/*"]
-    }
+    },
+    "esModuleInterop": true
   },
   "include": ["src", "vite-env.d.ts"]
 }
